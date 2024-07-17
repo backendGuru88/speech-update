@@ -20,18 +20,18 @@ voice_choice = st.radio(
 button = st.button("🗣 start listening")
 
 if button:
-    engine = pyttsx3.init()
-    
-    
-    voices = engine.getProperty('voices')
-    if voice_choice == "Male":
-        engine.setProperty('voice', voices[0].id)  
-    else:
-        engine.setProperty('voice', voices[1].id)  
-    
-    user_input = text
-    if user_input:  
-        engine.say(user_input)
-        engine.runAndWait()
-        st.balloons()
-      
+    try:
+        engine = pyttsx3.init()
+        voices = engine.getProperty('voices')
+        if voice_choice == "Male":
+            engine.setProperty('voice', voices[0].id)
+        else:
+            engine.setProperty('voice', voices[1].id)
+        
+        user_input = text
+        if user_input:
+            engine.say(user_input)
+            engine.runAndWait()
+            st.balloons()
+    except OSError as e:
+        st.error("An error occurred while initializing the TTS engine. Please make sure the necessary system dependencies are installed.")
